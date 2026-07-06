@@ -21,6 +21,7 @@ export interface ITask extends Document {
         status: TaskStatus
     }[]
     notes: Types.ObjectId[]
+    createdBy: Types.ObjectId
 }
 
 export const TaskSchema : Schema = new Schema({
@@ -62,7 +63,11 @@ export const TaskSchema : Schema = new Schema({
             type: Types.ObjectId,
             ref: 'Note'
         }
-    ]
+    ],
+    createdBy: {
+        type: Types.ObjectId,
+        ref: 'User'
+    }
 }, {timestamps: true})
 
 // Middleware

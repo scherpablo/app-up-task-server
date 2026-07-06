@@ -39,3 +39,27 @@ export function hasAuthorization(req: Request, res: Response, next: NextFunction
     }
     next()
 }
+
+export function isProjectMemberOrManager(req: Request, res: Response, next: NextFunction ) {
+    const userId = req.user.id.toString()
+    const isManager = req.project.manager.toString() === userId
+    const isTeamMember = req.project.team.some( member => member.toString() === userId )
+
+    if( !isManager && !isTeamMember ) {
+        const error = new Error('Acción no válida')
+        return res.status(400).json({error: error.message})
+    }
+    next()
+}
+
+export function hasAuthorizationTaskEdit(req: Request, res: Response, next: NextFunction ) {
+    const userId = req.user.id.toString()
+    const isManager = req.project.manager.toString() === userId
+    const isCreator = req.task.createdBy?.toString() === userId
+
+    if( !isManager && !isCreator ) {
+        const error = new Error('Solo el manager o quien creó la tarea puede realizar esta acción')
+        return res.status(400).json({error: error.message})
+    }
+    next()
+}
