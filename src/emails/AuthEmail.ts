@@ -10,7 +10,7 @@ export class AuthEmail {
     static sendConfirmationEmail = async ( user : IEmail ) => {
         try {
             const info = await transporter.sendMail({
-                from: 'UpTask <info@estudiols.net.ar>',
+                from: 'UpTask <pabloscherpa@gmail.com>',
                 to: user.email,
                 subject: 'UpTask - Confirma tu cuenta',
                 text: 'UpTask - Confirma tu cuenta',
