@@ -13,7 +13,7 @@ export class AuthEmail {
     static sendConfirmationEmail = async (user: IEmail) => {
         try {
             const info = await resend.emails.send({
-                from: 'UpTask <onboarding@resend.dev>',
+                from: 'UpTask <no-reply@mail.estudiols.net.ar>',
                 to: user.email,
                 subject: 'UpTask - Confirma tu cuenta',
                 html: `
@@ -49,7 +49,7 @@ export class AuthEmail {
     static sendPasswordResetToken = async (user: IEmail) => {
         try {
             const info = await resend.emails.send({
-                from: 'UpTask <onboarding@resend.dev>',
+                from: 'UpTask <no-reply@mail.estudiols.net.ar>',
                 to: user.email,
                 subject: 'UpTask - Reestablece tu password',
                 html: `
