@@ -19,6 +19,11 @@ app.use(morgan('dev'))
 // Leer datos de formularios
 app.use(express.json())
 
+// Ruta para UptimeRobot
+app.get('/', (req, res) => {
+    res.send('API funcionando correctamente')
+})
+
 // Routes
 app.use('/api/auth', authRoutes)
 app.use('/api/projects', projectRoutes)
