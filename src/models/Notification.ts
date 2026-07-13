@@ -17,6 +17,8 @@ export interface INotification extends Document {
     message: string
     createdBy: Types.ObjectId
     readBy: Types.ObjectId[]
+    createdAt: Date
+    updatedAt: Date
 }
 
 const NotificationSchema: Schema = new Schema({

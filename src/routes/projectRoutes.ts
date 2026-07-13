@@ -9,6 +9,7 @@ import { isProjectMemberOrManager, hasAuthorizationTaskEdit, hasAuthorization, t
 import { authenticate } from '../middleware/auth'
 import { TeamMemberController } from '../controllers/TeamController'
 import { NoteController } from '../controllers/NoteController'
+import { NotificationController } from '../controllers/NotificationController'
 
 const router = Router()
 
@@ -33,6 +34,8 @@ router.get('/:id',
     ProjectController.getProjectById
 )
 
+/** Routes for notifications (global) */
+router.get('/notifications/unread-counts', NotificationController.getUnreadCounts)
 
 /** Routes for tasks */
 router.param('projectId', projectExists)
@@ -148,6 +151,17 @@ router.delete('/:projectId/tasks/:taskId/notes/:noteId',
     param('noteId').isMongoId().withMessage('ID No Válido'),
     handleInputErrors,
     NoteController.deleteNote
+)
+
+/** Routes for Notifications (per project) */
+router.get('/:projectId/notifications',
+    NotificationController.getProjectNotifications
+)
+
+router.post('/:projectId/notifications/:notificationId/read',
+    param('notificationId').isMongoId().withMessage('ID no válido'),
+    handleInputErrors,
+    NotificationController.markAsRead
 )
 
 export default router
