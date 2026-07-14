@@ -77,4 +77,22 @@ export class NotificationController {
             res.status(500).json({ error: 'Hubo un error' })
         }
     }
+
+    static markAllAsRead = async (req: Request, res: Response) => {
+        try {
+            await Notification.updateMany(
+                {
+                    project: req.project.id,
+                    readBy: { $ne: req.user.id }
+                },
+                {
+                    $push: { readBy: req.user.id }
+                }
+            )
+
+            res.send('Notificaciones marcadas como leídas')
+        } catch (error) {
+            res.status(500).json({ error: 'Hubo un error' })
+        }
+    }
 }

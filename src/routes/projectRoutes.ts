@@ -158,6 +158,10 @@ router.get('/:projectId/notifications',
     NotificationController.getProjectNotifications
 )
 
+router.post('/:projectId/notifications/read-all',
+    NotificationController.markAllAsRead
+)
+
 router.post('/:projectId/notifications/:notificationId/read',
     param('notificationId').isMongoId().withMessage('ID no válido'),
     handleInputErrors,
